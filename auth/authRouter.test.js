@@ -7,7 +7,7 @@ afterAll(() => {
 });
 
 describe('authorization', () => {
-  describe('register', () => {
+  describe('POST /auth/register', () => {
     it('should register with status 201', () => {
       return request(server)
         .post('/auth/register')
@@ -48,6 +48,40 @@ describe('authorization', () => {
           email: 'cecil1@mail.com'
         })
         .then(res => expect(res.status).toBe(500));
+    });
+  });
+
+  // login
+  describe('POST /auth/login', () => {
+    // registers before logging in
+    beforeEach(() => {
+      return request(server)
+        .post('/auth/register')
+        .send({
+          username: 'ceciljohn',
+          password: 'password',
+          email: 'cecil@mail.com'
+        });
+    });
+
+    it('should succesfully login with status 200', () => {
+      return request(server)
+        .post('/auth/login')
+        .send({
+          username: 'ceciljohn',
+          password: 'password'
+        })
+        .then(res => {
+          expect(res.status).toBe(200);
+        });
+    });
+    it('should fail and return 422 when no payload provided on login', () => {
+      return request(server)
+        .post('/auth/login')
+        .send()
+        .then(res => {
+          expect(res.status).toBe(422);
+        });
     });
   });
 });
