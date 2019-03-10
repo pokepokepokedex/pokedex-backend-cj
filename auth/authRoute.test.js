@@ -1,5 +1,5 @@
 const request = require('supertest');
-const server = require('./authRoute');
+const server = require('./authRouter');
 const db = require('./authModel');
 
 describe('authorization', () => {
