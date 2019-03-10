@@ -1,6 +1,10 @@
 const request = require('supertest');
-const server = require('./authRouter');
-const db = require('./authModel');
+const server = require('../api/server');
+const db = require('../data/dbConfig');
+
+afterAll(() => {
+  return db('users').truncate();
+});
 
 describe('authorization', () => {
   describe('register', () => {
@@ -12,24 +16,30 @@ describe('authorization', () => {
           password: 'password',
           email: 'admin@mail.com'
         })
-        .then(res => expect(res.status).toBe(201));
+        .then(res => {
+          expect(res.status).toBe(201);
+        });
     });
-    it('should return error 404 because no payload provided', () => {
+    it('should return error 422 because no payload provided', () => {
       return request(server)
         .post('/auth/register')
         .send()
-        .then(res => expect(res.status).toBe(404));
+        .then(res => expect(res.status).toBe(422));
     });
+
+    // adds a user to the db to test uniqueness
+    beforeEach(() => {
+      return request(server)
+        .post('/auth/register')
+        .send({
+          username: 'ceciljohn',
+          password: 'password',
+          email: 'cecil@mail.com'
+        });
+    });
+
+    // add same user
     it('should return error because username already registered', () => {
-      beforeEach(() => {
-        return request(server)
-          .post('/auth/register')
-          .send({
-            username: 'ceciljohn',
-            password: 'password',
-            email: 'cecil@mail.com'
-          });
-      });
       return request(server)
         .post('/auth/register')
         .send({
