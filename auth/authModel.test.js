@@ -1,4 +1,4 @@
-const { db } = require('../data/dbConfig');
+const db = require('../data/dbConfig');
 const auth = require('./authModel');
 //unit tests
 
@@ -15,7 +15,7 @@ describe('auth model', () => {
           password: 'password123',
           email: 'cjj@gmail.com'
         })
-        .then(res => expect(res.rowCount).toEqual(1));
+        .then(res => expect(res[0]).toBeGreaterThanOrEqual(1));
     });
   });
   describe('login', () => {
