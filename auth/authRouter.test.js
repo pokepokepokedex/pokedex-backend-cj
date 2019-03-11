@@ -1,6 +1,6 @@
 const request = require('supertest');
 const server = require('../api/server');
-const db = require('../data/dbConfig');
+const { db } = require('../data/dbConfig');
 
 afterAll(() => {
   return db('users').truncate();
