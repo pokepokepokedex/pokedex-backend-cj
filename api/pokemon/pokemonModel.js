@@ -9,7 +9,7 @@ const getAll = () => {
       'pokedex_number',
       'type1',
       'type2',
-      'classification',
+      'classfication',
       'height_m',
       'weight_kg',
       'abilities',
