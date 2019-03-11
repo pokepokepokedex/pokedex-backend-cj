@@ -10,7 +10,9 @@ route.get('/', authenticate, (req, res) => {
       res.json(users);
     })
     .catch(err => {
-      res.status(500).json(err);
+      res
+        .status(500)
+        .json({ message: `You are not authorized: ${err.message}` });
     });
 });
 
