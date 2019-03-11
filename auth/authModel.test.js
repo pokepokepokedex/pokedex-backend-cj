@@ -1,21 +1,21 @@
-const db = require('../data/dbConfig');
+const { db } = require('../data/dbConfig');
 const auth = require('./authModel');
 //unit tests
 
- describe('auth model', () => {
+describe('auth model', () => {
   describe('register', () => {
     afterEach(() => {
       return db('users').truncate();
     });
 
-     it('should post provided body into the db', () => {
+    it('should post provided body into the db', () => {
       return auth
         .register({
           username: 'cj1',
           password: 'password123',
           email: 'cjj@gmail.com'
         })
-        .then(res => expect(res[0]).toEqual(1));
+        .then(res => expect(res.rowCount).toEqual(1));
     });
   });
   describe('login', () => {
