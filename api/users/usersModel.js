@@ -1,7 +1,9 @@
 const db = require('../../data/dbConfig');
 
 const getAll = () => {
-  return db('users').select('id', 'username', 'email');
+  return db('users')
+    .select('id', 'username', 'email')
+    .paginate(15, 1, true);
 };
 
 const getById = id => {
