@@ -70,7 +70,7 @@ ____
 
 | name           | type   | required | description              |
 | -------------- | ------ | -------- | ------------------------ |
-| `email`        | String | Yes      | Must match an email in the database |
+| `username`        | String | Yes      | Must match a username in the database |
 | `password`     | String | Yes      | Must match a password in the database corresponding to above email |
 
 *example:*
