@@ -12,21 +12,20 @@ const getById = id => {
 };
 
 const deleteById = id => {
-  return db('users');
+  return db('users')
+    .where({ id })
+    .del();
 };
 
-const insert = user => {
-  return db('users').insert(user);
-};
-
-const update = () => {
-  return db('users');
+const updateById = (id, changes) => {
+  return db('users')
+    .where({ id })
+    .update(changes);
 };
 
 module.exports = {
   getAll,
   getById,
   deleteById,
-  insert,
-  update
+  updateById
 };

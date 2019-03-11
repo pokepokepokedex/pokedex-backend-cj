@@ -14,7 +14,7 @@ describe('users model', () => {
     return db('users').truncate();
   });
   describe('getAll', () => {
-    it('should return all users with status 200', () => {
+    it('should return all users ', () => {
       return users
         .getAll()
         .then(res =>
@@ -30,9 +30,9 @@ describe('users model', () => {
     });
   });
   describe('getById', () => {
-    it('should return one user by id with status 200', () => {
+    it('should return one user by id ', () => {
       return users
-        .getById({ 1: 1 })
+        .getById(1)
         .then(res => {
           expect(res[0]).toEqual({
             id: 1,
@@ -43,6 +43,21 @@ describe('users model', () => {
         .catch(err => {
           console.log(err);
         });
+    });
+  });
+  describe('updateById', () => {
+    it('should update user based on id', () => {
+      return users.updateById(1, { username: 'cj11' }).then(res => {
+        expect(res).toBe(0);
+      });
+    });
+  });
+  describe('deleteById', () => {
+    it('should delete user by id and return the user', () => {
+      users.deleteById(1);
+      return users.getById(1).then(res => {
+        expect(res).toBe(undefined);
+      });
     });
   });
 });
