@@ -2,13 +2,6 @@
 require('dotenv').config();
 const pg = require('pg');
 pg.defaults.ssl = true;
-const localPgConnection = {
-  host: 'localhost',
-  database: 'pokemon',
-  user: 'username',
-  password: 'password'
-};
-const prodDbConnection = process.env.DATABASE_URL || localPgConnection;
 
 module.exports = {
   development: {
@@ -41,7 +34,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: prodDbConnection,
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
