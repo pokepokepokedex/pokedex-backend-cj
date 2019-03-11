@@ -1,10 +1,11 @@
 const express = require('express');
 const db = require('./pokemonModel');
 const route = express.Router();
+const { authenticate } = require('../../auth/authMiddleWare');
 
 // /api/pokemon
 
-route.get('/', async (req, res) => {
+route.get('/', authenticate, async (req, res) => {
   const resp = await db.getAll();
 
   try {
