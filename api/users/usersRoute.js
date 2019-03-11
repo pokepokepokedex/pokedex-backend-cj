@@ -4,7 +4,7 @@ const route = express.Router();
 const { authenticate } = require('../../auth/authMiddleWare');
 
 // /api/users
-route.get('/', (req, res) => {
+route.get('/', authenticate, (req, res) => {
   db.getAll()
     .then(users => {
       res.json(users);

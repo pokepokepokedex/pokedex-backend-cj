@@ -21,12 +21,34 @@ server.use('/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/pokemon', pokemonRoutes);
 
-server.get('/data', (req, res) => {
-  return db('pokemon')
-    .then(res => {
-      res.json(res);
-    })
-    .catch(err => res.status(500).json(err));
+server.get('/data', async (req, res) => {
+  const resp = await db('pokemon')
+    .select(
+      'pokedex_number as id',
+      'name',
+      'pokedex_number',
+      'type1',
+      'type2',
+      'height_m',
+      'weight_kg',
+      'abilities',
+      'base_happiness',
+      'hp',
+      'attack',
+      'defense',
+      'sp_attack',
+      'sp_defense',
+      'speed',
+      'generation',
+      'capture_rate'
+    )
+    .paginate(15, 1, true);
+  console.log(resp);
+  try {
+    res.json(resp);
+  } catch (err) {
+    res.json(err);
+  }
 });
 
 module.exports = server;
