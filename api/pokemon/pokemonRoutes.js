@@ -1,10 +1,10 @@
-const express = require("express");
-const db = require("./pokemonModel");
+const express = require('express');
+const db = require('./pokemonModel');
 const route = express.Router();
 
 // /api/pokemon
 
-route.get("/", async (req, res) => {
+route.get('/', async (req, res) => {
   const resp = await db.getAll();
 
   try {
@@ -14,7 +14,7 @@ route.get("/", async (req, res) => {
   }
 });
 
-route.get("/:id", (req, res) => {
+route.get('/:id', (req, res) => {
   const id = req.params.id;
   db.getById({ id })
     .then(res => {
