@@ -37,12 +37,9 @@
 ##### 200 (OK)
 >If you successfully register a user the endpoint will return an HTTP response with a status code `200` and a body as below.
 ```
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xGXoE",
-  "user": {
-    "id": 1,
-    "username": "ceciljohn"
-  }
+{ 
+  "message" : "You have registered, ceciljohn!"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xGXoE"
 }
 ```
 ##### 400 (Bad Request)
@@ -80,7 +77,7 @@ ____
 
 ```
 {
-  email: "cj@email.com",
+  username: "ceciljohn",
   password: "password123"
 }
 ```
@@ -92,11 +89,7 @@ ____
 ```
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xGXoE",
-  "user": {
-    "id": 1,
-    "username": "lauren",
-    "img_url": "https://i.ytimg.com/vi/YCaGYUIfdy4/maxresdefault.jpg"
-  }
+  "message": "Welcome ceciljohn!"
 }
 ```
 ##### 400 (Bad Request)
