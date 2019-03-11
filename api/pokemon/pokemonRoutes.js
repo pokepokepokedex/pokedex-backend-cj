@@ -6,7 +6,7 @@ const { authenticate } = require('../../auth/authMiddleWare');
 // /api/pokemon
 
 route.get('/', authenticate, async (req, res) => {
-  const resp = await db.getAll();
+  const resp = await db.getAll(req.query);
 
   try {
     res.json(resp);
