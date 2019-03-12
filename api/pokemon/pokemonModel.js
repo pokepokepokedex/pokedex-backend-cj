@@ -11,7 +11,7 @@ const getEverything = () => {
 
 const getAll = query => {
   console.log('hello');
-  const { page = 1, limit = 15 } = query;
+  const { page = 1, limit = 8 } = query;
   return db('pokemon')
     .select(
       'pokedex_number as id',
