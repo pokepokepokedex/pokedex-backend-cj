@@ -15,16 +15,13 @@ route.get('/', authenticate, async (req, res) => {
   }
 });
 
-route.get('/:id', async (req, res) => {
+route.get('/:id', (req, res) => {
   const id = req.params.id;
-
-  const resp = await db.db.getById({ id });
-
-  try {
-    res.json(resp);
-  } catch (err) {
-    res.json(err);
-  }
+  db.getById(id)
+    .then(resp => {
+      res.json(resp);
+    })
+    .catch(err => res.status(500).json(err));
 });
 
 module.exports = route;

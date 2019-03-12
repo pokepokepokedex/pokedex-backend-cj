@@ -6,13 +6,65 @@
 
 This repository holds all back-end files and resources for PokePokePokedex application and its readme documentation
 
-# DATA SET 
+## Deployed
 
-*Data Set found in:* `https://www.kaggle.com/rounakbanik/pokemon`
+https://pokepokepokedex.herokuapp.com
+
+## DATA SET 
+
+*Found in:* https://www.kaggle.com/rounakbanik/pokemon
 
 
 ## SCHEMA
 
+`users`
+```
+{
+  "id": 1,                            // Integer [Primary key]
+  "username": "admin",                // String [Required, Unique]
+  "password": "password",             // String [Required]
+  "email": "admin@administrator.com"  // String [Required, Unique]
+}
+```
+
+`pokemon`
+```
+{
+  "id": 1,                                      // Integer
+  "name": "Bulbasaur",                          // Text
+  "pokedex_number": 1,                          // Integer
+  "type1": "grass",                             // Text
+  "type2": "poison",                            // Text
+  "height_m": 0.7,                              // Numeric(3, 1)
+  "weight_kg": 6.9,                             // Numeric(4, 1)
+  "abilities": "['Overgrow', 'Chlorophyll']",   // Text
+  "base_happiness": 70,                         // Integer
+  "hp": 45,                                     // Integer
+  "attack": 49,                                 // Integer
+  "defense": 49,                                // Integer
+  "sp_attack": 65,                              // Integer
+  "sp_defense": 65,                             // Integer
+  "speed": 45,                                  // Integer
+  "generation": 1,                              // Integer
+  "capture_rate": "45"                          // Text
+}
+```
+
+## Pagination
+
+```
+navigate at the end of url by: ?page=2
+
+{
+  "total": 1,
+  "last_page": 1, 
+  "per_page": 15,
+  "current_page": 1,
+  "from": 0,
+  "to": 1,
+  "data": []
+}
+```
 ## Test Accounts
 
 ```
@@ -32,15 +84,16 @@ This repository holds all back-end files and resources for PokePokePokedex appli
 
 ## API ENDPOINTS
 
-|Name|Method|Endpoint|Description|
-|Register|POST|/auth/register|Creates a new user to the users table in the database|
-|Login|POST|/auth/login|Checks whether payload from the body matches with a user in the database. On Succesful login, returns a message and a JWT Token|
-|Get all users|GET|/api/users| PROTECTED ROUTE - Returns an array of user objects of all users|
-|Get user by ID|GET|/api/users/:id| PROTECTED ROUTE - Returns an array of object of selected user by ID|
+| name | method | endpoint | description|
+| ---- | ------ | -------- | ----------- |
+| Register | POST | /auth/register| Creates a new `user` to the users table in the database |
+|Login|POST|/auth/login|Checks whether payload from the `body` matches with a user in the database. On Succesful login, returns a message and a `JWT Token`|
+|Get all users|GET|/api/users| `PROTECTED ROUTE` - Returns an array of user objects of all users|
+|Get user by ID|GET|/api/users/:id| `PROTECTED ROUTE` - Returns an array of object of selected user by ID|
 |Delete user by ID|DELETE|/api/users/:id| delete selected user by ID|
 |Update user by ID|PUT|/api/users/:id| updates selected user property by ID using payload sent to the body|
-|Get all pokemon|GET|/api/pokemon| PROTECTED ROUTE - Returns an array of pokemon objects of all pokemon|
-|Get pokemon by ID|GET|/api/pokemon/:id| PROTECTED ROUTE - Returns an array of pokemon objects of selected pokemon by ID|
+|Get all pokemon|GET|/api/pokemon| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon|
+|Get pokemon by ID|GET|/api/pokemon/:id| `PROTECTED ROUTE` - Returns an array of pokemon objects of selected pokemon by ID|
 ----
 
 # AUTH ROUTES
@@ -72,7 +125,7 @@ This repository holds all back-end files and resources for PokePokePokedex appli
 ```
 {
   username: "ceciljohn",
-  password: "password123",
+  password: "password",
   email: "cj@email.com"
 }
 ```
@@ -84,7 +137,6 @@ This repository holds all back-end files and resources for PokePokePokedex appli
 ```
 { 
   "message" : "You have registered, ceciljohn!"
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xGXoE"
 }
 ```
 ##### 400 (Bad Request)
@@ -123,7 +175,7 @@ ____
 ```
 {
   username: "ceciljohn",
-  password: "password123"
+  password: "password"
 }
 ```
 
@@ -133,6 +185,7 @@ ____
 >If you successfully login, the endpoint will return an HTTP response with a status code `200` and a body as below.
 ```
 {
+  "message": "Welcome ceciljohn!",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xGXoE",
   "message": "Welcome ceciljohn!"
 }
@@ -155,59 +208,56 @@ ____
 ```
 ___
 
-## **UPDATE USER**
-### Updates the username or password of a user
+# USER ROUTES
 
-*Method Url:* `/auth/update`
-*HTTP method:* **[PATCH]**
+## **GET ALL USERS**
+### Returns all users
+
+*Mehod Url:* `/api/users`
+*HTTP method:* **[GET]**
 
 #### Headers
 
 | name | type   | required | description |
 | ----- | ------ | -------- | ----- |
 | `Content-Type` | String | Yes | Must be application/json |
-| `Authorization`| String | No | Bearer JWT authorization token |
-
-#### Body
-
-| name | type   | required | description|
-| ----| ------ | -------- | ---- |
-| `newUsername` | String | No | Only include if you would like to change the username of the user |
-| `currentPassword` | String | Yes  | Must match a password in the logged in user |
-| `newPassword` | String | No | Only include if you would like to change the password of the user |
-
-*example:*
-
-```
-{
-  newUsername: "dinocj",
-  currentPassword: "password123",
-  newPassword: "password1234"
-}
-```
-
+| `Authorization`| String | No       | Bearer JWT authorization token |
 
 #### Response
 
 ##### 200 (OK)
->If you successfully update the user information and change the password, the endpoint will return an HTTP response with a status code `200` and a body as below.
+>If you successfully get al the users, the endpoint will return an HTTP response with a status code `200` and a body as below.
 ```
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTQ1MTEzMDMxLCJleHAiOjE1NzY2NzA2MzF9.C1oMA1D2qdLLaPSfvEWU5LaXCABVf2DBWomQ1tUQDgU",
-  "user": {
-    "id": 2
+  {
+    "total": 3,
+    "last_page": 1,
+    "per_page": 15,
+    "current_page": 1,
+    "from": 0,
+    "to": 3,
+    "data": [
+      {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@administrator.com"
+      },
+      {
+        "id": 2,
+        "username": "beniscool",
+        "email": "beniscool@administrator.com"
+      },
+      {
+        "id": 3,
+        "username": "ceciljohn",
+        "email": "ceciljohn@administrator.com"
+      }
+    ]
   }
 }
 ```
->>If you successfully update the user information and change just the username, the endpoint will return an HTTP response with a status code `200` and a body as below.
-```
-{
-  "user": {
-    "id": 2,
-    "username": "dinolaur"
-  }
-}
-```
+
+
 ##### 400 (Bad Request)
 >If you send in invalid fields or the password of the user corresponding to the token does not match the currentPassword field, the endpoint will return an HTTP response with a status code `400` and a body as below.
 ```
@@ -228,113 +278,432 @@ ___
 
 ---
 
-# POKEMON ROUTES
+## **GET USER BY ID**
+### Returns selected user by ID
 
-## **GET ALL POKEMON**
-### Gets an array of pokemon objects
-
-*Method Url:* `/api/pokemon`
-
+*Mehod Url:* `/api/users/:id`
 *HTTP method:* **[GET]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-
-#### Parameters
-
-| name    | type   | required | description              |
-| --------| ------ | -------- | ------------------------ |
-| `topic` | String | No       | Query parameters in order to receive quizzes of specific topic |
-
-#### Response 
-
-##### 200 (OK)
-
-```
-[
-  {
-    "id": 2,
-    "title": "Array Methods",
-    "votes": 123,
-    "author": "lauren"
-    "topic": "JavaScript"
-  }
-]
-```
-
-___
-
-## **GET ONE QUIZ**
-### Gets a quiz with a specified ID
-
-*Method Url:* `/api/quizzes/:quizId`
-
-*HTTP method:* **[GET]**
-
-#### Headers
-
-| name           | type   | required | description                    |
-| -------------- | ------ | -------- | ------------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json       |
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
 | `Authorization`| String | No       | Bearer JWT authorization token |
 
 #### Parameters
 
 | name    | type   | required | description              |
 | --------| ------ | -------- | ------------------------ |
-| `quizId`| Int    | Yes      | Id of specific quiz |
+| `id`| Int    | Yes      | Id of specific user |
 
 
-#### Response 
+#### Response
 
 ##### 200 (OK)
-
->If you send a valid quiz id with no authorization token, the endpoint will return an HTTP response with a status code `200` and a body as below.
-
+>If you successfully get al the users, the endpoint will return an HTTP response with a status code `200` and a body as below.
 ```
 {
-  "id": 2,
-  "title": "Array Methods",
-  "votes": 123,
-  "author": {
-    "id": 1,
-    "username": "lauren",
-    "img_url": "https://i.ytimg.com/vi/YCaGYUIfdy4/maxresdefault.jpg"
-  },
-  "topic": "JavaScript"
+  "id": 1,
+  "username": "admin",
+  "email": "admin@administrator.com"
 }
 ```
 
->If you send a valid quiz id with a valid authorization token, the endpoint will return an HTTP response with a status code `200` and a body as below.
-
-```
-{
-  "id": 2,
-  "title": "Array Methods",
-  "votes": 123,
-  "author": {
-    "id": 1,
-    "username": "lauren",
-    "img_url": "https://i.ytimg.com/vi/YCaGYUIfdy4/maxresdefault.jpg"
-  },
-  "topic": "JavaScript",
-  "score": 123,
-  "user_vote": -1, 
-  "favorite": false 
-}
-```
-
-##### 404 (Not Found)
->If you pass in an id that does not match one in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
 ```
 {
   "error": true,
-  "message": "The requested content does not exist."
+  "message": "You are unathorized to view the content."
 }
 ```
+
+---
+
+# POKEMON ROUTES
+
+## **GET ALL POKEMON**
+### Returns all pokemon
+
+*Mehod Url:* `/api/pokemon`
+*HTTP method:* **[GET]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Response
+
+##### 200 (OK)
+>If you successfully get all the pokemon with pagination, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+{
+  "total": 801,
+  "last_page": 54,
+  "per_page": 15,
+  "current_page": 1,
+  "from": 0,
+  "to": 15,
+  "data": [
+    {
+      "id": 1,
+      "name": "Bulbasaur",
+      "pokedex_number": 1,
+      "type1": "grass",
+      "type2": "poison",
+      "height_m": 0.7,
+      "weight_kg": 6.9,
+      "abilities": "['Overgrow', 'Chlorophyll']",
+      "base_happiness": 70,
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "sp_attack": 65,
+      "sp_defense": 65,
+      "speed": 45,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 2,
+      "name": "Ivysaur",
+      "pokedex_number": 2,
+      "type1": "grass",
+      "type2": "poison",
+      "height_m": 1,
+      "weight_kg": 13,
+      "abilities": "['Overgrow', 'Chlorophyll']",
+      "base_happiness": 70,
+      "hp": 60,
+      "attack": 62,
+      "defense": 63,
+      "sp_attack": 80,
+      "sp_defense": 80,
+      "speed": 60,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 3,
+      "name": "Venusaur",
+      "pokedex_number": 3,
+      "type1": "grass",
+      "type2": "poison",
+      "height_m": 2,
+      "weight_kg": 100,
+      "abilities": "['Overgrow', 'Chlorophyll']",
+      "base_happiness": 70,
+      "hp": 80,
+      "attack": 100,
+      "defense": 123,
+      "sp_attack": 122,
+      "sp_defense": 120,
+      "speed": 80,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 4,
+      "name": "Charmander",
+      "pokedex_number": 4,
+      "type1": "fire",
+      "type2": null,
+      "height_m": 0.6,
+      "weight_kg": 8.5,
+      "abilities": "['Blaze', 'Solar Power']",
+      "base_happiness": 70,
+      "hp": 39,
+      "attack": 52,
+      "defense": 43,
+      "sp_attack": 60,
+      "sp_defense": 50,
+      "speed": 65,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 5,
+      "name": "Charmeleon",
+      "pokedex_number": 5,
+      "type1": "fire",
+      "type2": null,
+      "height_m": 1.1,
+      "weight_kg": 19,
+      "abilities": "['Blaze', 'Solar Power']",
+      "base_happiness": 70,
+      "hp": 58,
+      "attack": 64,
+      "defense": 58,
+      "sp_attack": 80,
+      "sp_defense": 65,
+      "speed": 80,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 6,
+      "name": "Charizard",
+      "pokedex_number": 6,
+      "type1": "fire",
+      "type2": "flying",
+      "height_m": 1.7,
+      "weight_kg": 90.5,
+      "abilities": "['Blaze', 'Solar Power']",
+      "base_happiness": 70,
+      "hp": 78,
+      "attack": 104,
+      "defense": 78,
+      "sp_attack": 159,
+      "sp_defense": 115,
+      "speed": 100,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 7,
+      "name": "Squirtle",
+      "pokedex_number": 7,
+      "type1": "water",
+      "type2": null,
+      "height_m": 0.5,
+      "weight_kg": 9,
+      "abilities": "['Torrent', 'Rain Dish']",
+      "base_happiness": 70,
+      "hp": 44,
+      "attack": 48,
+      "defense": 65,
+      "sp_attack": 50,
+      "sp_defense": 64,
+      "speed": 43,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 8,
+      "name": "Wartortle",
+      "pokedex_number": 8,
+      "type1": "water",
+      "type2": null,
+      "height_m": 1,
+      "weight_kg": 22.5,
+      "abilities": "['Torrent', 'Rain Dish']",
+      "base_happiness": 70,
+      "hp": 59,
+      "attack": 63,
+      "defense": 80,
+      "sp_attack": 65,
+      "sp_defense": 80,
+      "speed": 58,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 9,
+      "name": "Blastoise",
+      "pokedex_number": 9,
+      "type1": "water",
+      "type2": null,
+      "height_m": 1.6,
+      "weight_kg": 85.5,
+      "abilities": "['Torrent', 'Rain Dish']",
+      "base_happiness": 70,
+      "hp": 79,
+      "attack": 103,
+      "defense": 120,
+      "sp_attack": 135,
+      "sp_defense": 115,
+      "speed": 78,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 10,
+      "name": "Caterpie",
+      "pokedex_number": 10,
+      "type1": "bug",
+      "type2": null,
+      "height_m": 0.3,
+      "weight_kg": 2.9,
+      "abilities": "['Shield Dust', 'Run Away']",
+      "base_happiness": 70,
+      "hp": 45,
+      "attack": 30,
+      "defense": 35,
+      "sp_attack": 20,
+      "sp_defense": 20,
+      "speed": 45,
+      "generation": 1,
+      "capture_rate": "255"
+    },
+    {
+      "id": 11,
+      "name": "Metapod",
+      "pokedex_number": 11,
+      "type1": "bug",
+      "type2": null,
+      "height_m": 0.7,
+      "weight_kg": 9.9,
+      "abilities": "['Shed Skin']",
+      "base_happiness": 70,
+      "hp": 50,
+      "attack": 20,
+      "defense": 55,
+      "sp_attack": 25,
+      "sp_defense": 25,
+      "speed": 30,
+      "generation": 1,
+      "capture_rate": "120"
+    },
+    {
+      "id": 12,
+      "name": "Butterfree",
+      "pokedex_number": 12,
+      "type1": "bug",
+      "type2": "flying",
+      "height_m": 1.1,
+      "weight_kg": 32,
+      "abilities": "['Compoundeyes', 'Tinted Lens']",
+      "base_happiness": 70,
+      "hp": 60,
+      "attack": 45,
+      "defense": 50,
+      "sp_attack": 90,
+      "sp_defense": 80,
+      "speed": 70,
+      "generation": 1,
+      "capture_rate": "45"
+    },
+    {
+      "id": 13,
+      "name": "Weedle",
+      "pokedex_number": 13,
+      "type1": "bug",
+      "type2": "poison",
+      "height_m": 0.3,
+      "weight_kg": 3.2,
+      "abilities": "['Shield Dust', 'Run Away']",
+      "base_happiness": 70,
+      "hp": 40,
+      "attack": 35,
+      "defense": 30,
+      "sp_attack": 20,
+      "sp_defense": 20,
+      "speed": 50,
+      "generation": 1,
+      "capture_rate": "255"
+    },
+    {
+      "id": 14,
+      "name": "Kakuna",
+      "pokedex_number": 14,
+      "type1": "bug",
+      "type2": "poison",
+      "height_m": 0.6,
+      "weight_kg": 10,
+      "abilities": "['Shed Skin']",
+      "base_happiness": 70,
+      "hp": 45,
+      "attack": 25,
+      "defense": 50,
+      "sp_attack": 25,
+      "sp_defense": 25,
+      "speed": 35,
+      "generation": 1,
+      "capture_rate": "120"
+    },
+    {
+      "id": 15,
+      "name": "Beedrill",
+      "pokedex_number": 15,
+      "type1": "bug",
+      "type2": "poison",
+      "height_m": 1,
+      "weight_kg": 29.5,
+      "abilities": "['Swarm', 'Sniper']",
+      "base_happiness": 70,
+      "hp": 65,
+      "attack": 150,
+      "defense": 40,
+      "sp_attack": 15,
+      "sp_defense": 80,
+      "speed": 145,
+      "generation": 1,
+      "capture_rate": "45"
+    }
+  ]
+}
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+---
+
+## **GET POKEMON BY ID**
+### Returns selected pokemon by ID
+
+*Mehod Url:* `/api/pokemon/:id`
+*HTTP method:* **[GET]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Parameters
+
+| name    | type   | required | description              |
+| --------| ------ | -------- | ------------------------ |
+| `id`| Int    | Yes      | Id of specific pokemon |
+
+
+#### Response
+
+##### 200 (OK)
+>If you successfully get the selected pokemon, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+{
+  "id": 151,
+  "name": "Mew",
+  "pokedex_number": 151,
+  "type1": "psychic",
+  "type2": null,
+  "height_m": 0.4,
+  "weight_kg": 4,
+  "abilities": "['Synchronize']",
+  "base_happiness": 100,
+  "hp": 100,
+  "attack": 100,
+  "defense": 100,
+  "sp_attack": 100,
+  "sp_defense": 100,
+  "speed": 100,
+  "generation": 1,
+  "capture_rate": "45"
+}
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
 ---
 
 

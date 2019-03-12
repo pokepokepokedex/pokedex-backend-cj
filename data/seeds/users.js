@@ -15,12 +15,12 @@ exports.seed = function(knex, Promise) {
         {
           username: 'beniscool',
           password: bcrypt.hashSync('password', 10),
-          email: 'admin@administrator.com'
+          email: 'beniscool@administrator.com'
         },
         {
           username: 'ceciljohn',
           password: bcrypt.hashSync('password', 10),
-          email: 'admin@administrator.com'
+          email: 'ceciljohn@administrator.com'
         }
       ]);
     });

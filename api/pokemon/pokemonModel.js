@@ -51,7 +51,7 @@ const getById = id => {
       'generation',
       'capture_rate'
     )
-    .where('pokedex_number', id)
+    .where({ pokedex_number: id })
     .first();
 };
 
