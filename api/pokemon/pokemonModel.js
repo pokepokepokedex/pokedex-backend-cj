@@ -4,6 +4,11 @@ const getusers = () => {
   return db('users');
 };
 
+const getEverything = () => {
+  console.log('hello');
+  return db('pokemon').select('pokedex_number as id', 'name');
+};
+
 const getAll = query => {
   console.log('hello');
   const { page = 1, limit = 15 } = query;
@@ -58,5 +63,6 @@ const getById = id => {
 module.exports = {
   getAll,
   getById,
-  getusers
+  getusers,
+  getEverything
 };

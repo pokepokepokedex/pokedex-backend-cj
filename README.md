@@ -19,6 +19,7 @@
   * [Update user](#update-user)
 * [Pokemon routes](#pokemon-routes)
   * [Get all pokemon](#get-all-pokemon)
+  * [Get all pokemon with pagination](#get-all-pokemon-with-pagination)
   * [Get pokemon by ID](#get-pokemon-by-id)
 ----
 # Overview
@@ -424,7 +425,66 @@ TBA
 #### Response
 
 ##### 200 (OK)
->If you successfully get all the pokemon with pagination, the endpoint will return an HTTP response with a status code `200` and a body as below.
+>If you successfully get all the pokemon, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+{
+  {
+        "id": 1,
+        "name": "Bulbasaur"
+    },
+    {
+        "id": 2,
+        "name": "Ivysaur"
+    },
+    {
+        "id": 3,
+        "name": "Venusaur"
+    },
+    {
+        "id": 4,
+        "name": "Charmander"
+    },
+    {
+        "id": 5,
+        "name": "Charmeleon"
+    },
+    
+    
+    ...
+
+   to the 800th+ pokemon object
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+## **GET ALL POKEMON WITH PAGINATION**
+### Returns all pokemon; 15 per page
+
+*Mehod Url:* `/api/pokemon`
+*HTTP method:* **[GET]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Response
+
+##### 200 (OK)
+>If you successfully get all the pokemon with pagination that limits the list to 15 pokemon per page, the endpoint will return an HTTP response with a status code `200` and a body as below.
 ```
 {
   "total": 801,
@@ -453,253 +513,9 @@ TBA
       "generation": 1,
       "capture_rate": "45"
     },
-    {
-      "id": 2,
-      "name": "Ivysaur",
-      "pokedex_number": 2,
-      "type1": "grass",
-      "type2": "poison",
-      "height_m": 1,
-      "weight_kg": 13,
-      "abilities": "['Overgrow', 'Chlorophyll']",
-      "base_happiness": 70,
-      "hp": 60,
-      "attack": 62,
-      "defense": 63,
-      "sp_attack": 80,
-      "sp_defense": 80,
-      "speed": 60,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 3,
-      "name": "Venusaur",
-      "pokedex_number": 3,
-      "type1": "grass",
-      "type2": "poison",
-      "height_m": 2,
-      "weight_kg": 100,
-      "abilities": "['Overgrow', 'Chlorophyll']",
-      "base_happiness": 70,
-      "hp": 80,
-      "attack": 100,
-      "defense": 123,
-      "sp_attack": 122,
-      "sp_defense": 120,
-      "speed": 80,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 4,
-      "name": "Charmander",
-      "pokedex_number": 4,
-      "type1": "fire",
-      "type2": null,
-      "height_m": 0.6,
-      "weight_kg": 8.5,
-      "abilities": "['Blaze', 'Solar Power']",
-      "base_happiness": 70,
-      "hp": 39,
-      "attack": 52,
-      "defense": 43,
-      "sp_attack": 60,
-      "sp_defense": 50,
-      "speed": 65,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 5,
-      "name": "Charmeleon",
-      "pokedex_number": 5,
-      "type1": "fire",
-      "type2": null,
-      "height_m": 1.1,
-      "weight_kg": 19,
-      "abilities": "['Blaze', 'Solar Power']",
-      "base_happiness": 70,
-      "hp": 58,
-      "attack": 64,
-      "defense": 58,
-      "sp_attack": 80,
-      "sp_defense": 65,
-      "speed": 80,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 6,
-      "name": "Charizard",
-      "pokedex_number": 6,
-      "type1": "fire",
-      "type2": "flying",
-      "height_m": 1.7,
-      "weight_kg": 90.5,
-      "abilities": "['Blaze', 'Solar Power']",
-      "base_happiness": 70,
-      "hp": 78,
-      "attack": 104,
-      "defense": 78,
-      "sp_attack": 159,
-      "sp_defense": 115,
-      "speed": 100,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 7,
-      "name": "Squirtle",
-      "pokedex_number": 7,
-      "type1": "water",
-      "type2": null,
-      "height_m": 0.5,
-      "weight_kg": 9,
-      "abilities": "['Torrent', 'Rain Dish']",
-      "base_happiness": 70,
-      "hp": 44,
-      "attack": 48,
-      "defense": 65,
-      "sp_attack": 50,
-      "sp_defense": 64,
-      "speed": 43,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 8,
-      "name": "Wartortle",
-      "pokedex_number": 8,
-      "type1": "water",
-      "type2": null,
-      "height_m": 1,
-      "weight_kg": 22.5,
-      "abilities": "['Torrent', 'Rain Dish']",
-      "base_happiness": 70,
-      "hp": 59,
-      "attack": 63,
-      "defense": 80,
-      "sp_attack": 65,
-      "sp_defense": 80,
-      "speed": 58,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 9,
-      "name": "Blastoise",
-      "pokedex_number": 9,
-      "type1": "water",
-      "type2": null,
-      "height_m": 1.6,
-      "weight_kg": 85.5,
-      "abilities": "['Torrent', 'Rain Dish']",
-      "base_happiness": 70,
-      "hp": 79,
-      "attack": 103,
-      "defense": 120,
-      "sp_attack": 135,
-      "sp_defense": 115,
-      "speed": 78,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 10,
-      "name": "Caterpie",
-      "pokedex_number": 10,
-      "type1": "bug",
-      "type2": null,
-      "height_m": 0.3,
-      "weight_kg": 2.9,
-      "abilities": "['Shield Dust', 'Run Away']",
-      "base_happiness": 70,
-      "hp": 45,
-      "attack": 30,
-      "defense": 35,
-      "sp_attack": 20,
-      "sp_defense": 20,
-      "speed": 45,
-      "generation": 1,
-      "capture_rate": "255"
-    },
-    {
-      "id": 11,
-      "name": "Metapod",
-      "pokedex_number": 11,
-      "type1": "bug",
-      "type2": null,
-      "height_m": 0.7,
-      "weight_kg": 9.9,
-      "abilities": "['Shed Skin']",
-      "base_happiness": 70,
-      "hp": 50,
-      "attack": 20,
-      "defense": 55,
-      "sp_attack": 25,
-      "sp_defense": 25,
-      "speed": 30,
-      "generation": 1,
-      "capture_rate": "120"
-    },
-    {
-      "id": 12,
-      "name": "Butterfree",
-      "pokedex_number": 12,
-      "type1": "bug",
-      "type2": "flying",
-      "height_m": 1.1,
-      "weight_kg": 32,
-      "abilities": "['Compoundeyes', 'Tinted Lens']",
-      "base_happiness": 70,
-      "hp": 60,
-      "attack": 45,
-      "defense": 50,
-      "sp_attack": 90,
-      "sp_defense": 80,
-      "speed": 70,
-      "generation": 1,
-      "capture_rate": "45"
-    },
-    {
-      "id": 13,
-      "name": "Weedle",
-      "pokedex_number": 13,
-      "type1": "bug",
-      "type2": "poison",
-      "height_m": 0.3,
-      "weight_kg": 3.2,
-      "abilities": "['Shield Dust', 'Run Away']",
-      "base_happiness": 70,
-      "hp": 40,
-      "attack": 35,
-      "defense": 30,
-      "sp_attack": 20,
-      "sp_defense": 20,
-      "speed": 50,
-      "generation": 1,
-      "capture_rate": "255"
-    },
-    {
-      "id": 14,
-      "name": "Kakuna",
-      "pokedex_number": 14,
-      "type1": "bug",
-      "type2": "poison",
-      "height_m": 0.6,
-      "weight_kg": 10,
-      "abilities": "['Shed Skin']",
-      "base_happiness": 70,
-      "hp": 45,
-      "attack": 25,
-      "defense": 50,
-      "sp_attack": 25,
-      "sp_defense": 25,
-      "speed": 35,
-      "generation": 1,
-      "capture_rate": "120"
-    },
+    
+    ...
+
     {
       "id": 15,
       "name": "Beedrill",
