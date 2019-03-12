@@ -1,22 +1,32 @@
 # PokePokePokedex! API 
 
-## Table of Conents
+## Table of Contents
 
-- [Heading](#heading)
-  * [Sub-heading](#sub-heading)
-    + [Sub-sub-heading](#sub-sub-heading)
-- [Heading](#heading-1)
-  * [Sub-heading](#sub-heading-1)
-    + [Sub-sub-heading](#sub-sub-heading-1)
-- [Heading](#heading-2)
-  * [Sub-heading](#sub-heading-2)
-    + [Sub-sub-heading](#sub-sub-heading-2)
+- [Overview](#overview)
+  * [API URL](#api-url)
+  * [Data set](#DATASET)
+  * [SCHEMA](#SCHEMA)
+  * [Pagination](#Pagination)
+  * [Test accounts](#Test-Accounts)
+  * [API endpoints](#API-ENDPOINTS)
+- [Auth routes](#AUTH-ROUTES)
+  - [Register](#REGISTER)
+  - [Login](#Login)
+- [User routes](#user-routes)
+  * [Get all users](#Get-all-users)
+  * [Get user by ID](#Get-user-by-id)
+  * [Delete user](#delete-user)
+  * [Update user](#update-user)
+* [Pokemon routes](#pokemon-routes)
+  * [Get all pokemon](#get-all-pokemon)
+  * [Get pokemon by ID](#get-pokemon-by-id)
 ----
 # Overview
 
 This repository holds all back-end files and resources for PokePokePokedex application and its readme documentation
 
-## Deployed
+
+## API URL
 
 https://pokepokepokedex.herokuapp.com
 
@@ -60,6 +70,8 @@ https://pokepokepokedex.herokuapp.com
 }
 ```
 
+[Back to Table of Contents](#table-of-contents)
+
 ## Pagination
 
 ```
@@ -75,6 +87,8 @@ navigate at the end of url by: ?page=2
   "data": []
 }
 ```
+
+[Back to Table of Contents](#table-of-contents)
 ## Test Accounts
 
 ```
@@ -92,6 +106,8 @@ navigate at the end of url by: ?page=2
 
 ```
 
+[Back to Table of Contents](#table-of-contents)
+
 ## API ENDPOINTS
 
 | name | method | endpoint | description|
@@ -104,7 +120,12 @@ navigate at the end of url by: ?page=2
 |Update user by ID|PUT|/api/users/:id| updates selected user property by ID using payload sent to the body|
 |Get all pokemon|GET|/api/pokemon| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon|
 |Get pokemon by ID|GET|/api/pokemon/:id| `PROTECTED ROUTE` - Returns an array of pokemon objects of selected pokemon by ID|
-----
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+
 
 # AUTH ROUTES
 
@@ -157,7 +178,7 @@ navigate at the end of url by: ?page=2
   "message": "There was a problem with your request."
 }
 ```
-
+[Back to Table of Contents](#table-of-contents)
 ____
 
 ## **LOGIN**
@@ -216,6 +237,8 @@ ____
   "message": "The requested content does not exist."
 }
 ```
+
+[Back to Table of Contents](#table-of-contents)
 ___
 
 # USER ROUTES
@@ -328,6 +351,9 @@ ___
   "message": "You are unathorized to view the content."
 }
 ```
+
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 ## **DELETE USER**
@@ -370,10 +396,14 @@ ___
 }
 ```
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 ## **UPDATE USER**
 ### Updates seletcted user by ID
 TBA
+
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -703,6 +733,8 @@ TBA
 }
 ```
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 ## **GET POKEMON BY ID**
@@ -759,6 +791,8 @@ TBA
   "message": "You are unathorized to view the content."
 }
 ```
+
+[Back to Table of Contents](#table-of-contents)
 
 ---
 
