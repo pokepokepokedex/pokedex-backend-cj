@@ -4,6 +4,29 @@ const getusers = () => {
   return db('users');
 };
 
+const getEverything = () => {
+  console.log('hello');
+  return db('pokemon').select(
+    'pokedex_number as id',
+    'name',
+    'pokedex_number',
+    'type1',
+    'type2',
+    'height_m',
+    'weight_kg',
+    'abilities',
+    'base_happiness',
+    'hp',
+    'attack',
+    'defense',
+    'sp_attack',
+    'sp_defense',
+    'speed',
+    'generation',
+    'capture_rate'
+  );
+};
+
 const getAll = query => {
   console.log('hello');
   const { page = 1, limit = 15 } = query;
@@ -58,5 +81,6 @@ const getById = id => {
 module.exports = {
   getAll,
   getById,
-  getusers
+  getusers,
+  getEverything
 };
