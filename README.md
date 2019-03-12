@@ -1,6 +1,16 @@
 # PokePokePokedex! API 
 
 ## Table of Conents
+
+- [Heading](#heading)
+  * [Sub-heading](#sub-heading)
+    + [Sub-sub-heading](#sub-sub-heading)
+- [Heading](#heading-1)
+  * [Sub-heading](#sub-heading-1)
+    + [Sub-sub-heading](#sub-sub-heading-1)
+- [Heading](#heading-2)
+  * [Sub-heading](#sub-heading-2)
+    + [Sub-sub-heading](#sub-sub-heading-2)
 ----
 # Overview
 
@@ -318,6 +328,52 @@ ___
   "message": "You are unathorized to view the content."
 }
 ```
+---
+
+## **DELETE USER**
+### Deletes seletcted user by ID
+
+*Mehod Url:* `/api/users/:id`
+*HTTP method:* **[DELETE]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+
+#### Parameters
+
+| name    | type   | required | description              |
+| --------| ------ | -------- | ------------------------ |
+| `id`| Int    | Yes      | Id of specific user |
+
+
+#### Response
+
+##### 200 (OK)
+>If you successfully delete the selected user, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+{
+  "id": 1,
+  "username": "admin",
+  "email": "admin@administrator.com"
+}
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+---
+## **UPDATE USER**
+### Updates seletcted user by ID
+TBA
 
 ---
 
