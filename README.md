@@ -1,3 +1,48 @@
+# PokePokePokedex! API 
+
+## Table of Conents
+----
+# Overview
+
+This repository holds all back-end files and resources for PokePokePokedex application and its readme documentation
+
+# DATA SET 
+
+*Data Set found in:* `https://www.kaggle.com/rounakbanik/pokemon`
+
+
+## SCHEMA
+
+## Test Accounts
+
+```
+
+  username: 'admin',
+  password: 'password'
+
+
+  username: 'beniscool',
+  password: 'password'
+
+
+  username: 'ceciljohn',
+  password: 'password'
+
+```
+
+## API ENDPOINTS
+
+|Name|Method|Endpoint|Description|
+|Register|POST|/auth/register|Creates a new user to the users table in the database|
+|Login|POST|/auth/login|Checks whether payload from the body matches with a user in the database. On Succesful login, returns a message and a JWT Token|
+|Get all users|GET|/api/users| PROTECTED ROUTE - Returns an array of user objects of all users|
+|Get user by ID|GET|/api/users/:id| PROTECTED ROUTE - Returns an array of object of selected user by ID|
+|Delete user by ID|DELETE|/api/users/:id| delete selected user by ID|
+|Update user by ID|PUT|/api/users/:id| updates selected user property by ID using payload sent to the body|
+|Get all pokemon|GET|/api/pokemon| PROTECTED ROUTE - Returns an array of pokemon objects of all pokemon|
+|Get pokemon by ID|GET|/api/pokemon/:id| PROTECTED ROUTE - Returns an array of pokemon objects of selected pokemon by ID|
+----
+
 # AUTH ROUTES
 
 ## **REGISTER**
@@ -182,13 +227,13 @@ ___
 ```
 
 ---
-<!-- 
-# QUIZ ROUTES
 
-## **GET QUIZZES**
-### Gets an array of quiz objects
+# POKEMON ROUTES
 
-*Method Url:* `/api/quizzes`
+## **GET ALL POKEMON**
+### Gets an array of pokemon objects
+
+*Method Url:* `/api/pokemon`
 
 *HTTP method:* **[GET]**
 
@@ -292,6 +337,8 @@ ___
 ```
 ---
 
+
+<!-- 
 ## **GET TOPICS**
 ### Gets an array of quiz topics
 
