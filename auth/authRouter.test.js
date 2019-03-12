@@ -58,7 +58,7 @@ describe('authorization', () => {
       return request(server)
         .post('/auth/register')
         .send({
-          username: 'ceciljohn',
+          username: 'testing',
           password: 'password',
           email: 'cecil@mail.com'
         });
@@ -68,7 +68,7 @@ describe('authorization', () => {
       return request(server)
         .post('/auth/login')
         .send({
-          username: 'ceciljohn',
+          username: 'testing',
           password: 'password'
         })
         .then(res => {

@@ -4,8 +4,9 @@ const getusers = () => {
   return db('users');
 };
 
-const getAll = () => {
+const getAll = query => {
   console.log('hello');
+  const { page = 1, limit = 15 } = query;
   return db('pokemon')
     .select(
       'pokedex_number as id',
@@ -26,7 +27,7 @@ const getAll = () => {
       'generation',
       'capture_rate'
     )
-    .paginate(15, 1, true);
+    .paginate(limit, page, true);
 };
 
 const getById = id => {
@@ -50,7 +51,7 @@ const getById = id => {
       'generation',
       'capture_rate'
     )
-    .where('pokedex_number', id)
+    .where({ pokedex_number: id })
     .first();
 };
 
