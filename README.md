@@ -4,7 +4,7 @@
 
 - [Overview](#overview)
   * [API URL](#api-url)
-  * [Data set](#DATASET)
+  * [Data set](#DATA-SET)
   * [SCHEMA](#SCHEMA)
   * [Pagination](#Pagination)
   * [Test accounts](#Test-Accounts)
