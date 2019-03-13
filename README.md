@@ -119,7 +119,8 @@ navigate at the end of url by: ?page=2
 |Get user by ID|GET|/api/users/:id| `PROTECTED ROUTE` - Returns an array of object of selected user by ID|
 |Delete user by ID|DELETE|/api/users/:id| delete selected user by ID|
 |Update user by ID|PUT|/api/users/:id| updates selected user property by ID using payload sent to the body|
-|Get all pokemon|GET|/api/pokemon| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon|
+|Get all pokemon|GET|/api/pokemon/all| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon|
+|Get all pokemon by pagination|GET|/api/pokemon| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon with pagination|
 |Get pokemon by ID|GET|/api/pokemon/:id| `PROTECTED ROUTE` - Returns an array of pokemon objects of selected pokemon by ID|
 
 [Back to Table of Contents](#table-of-contents)
@@ -412,7 +413,7 @@ TBA
 ## **GET ALL POKEMON**
 ### Returns all pokemon
 
-*Mehod Url:* `/api/pokemon`
+*Mehod Url:* `/api/pokemon/all`
 *HTTP method:* **[GET]**
 
 #### Headers
