@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const authRouter = require('../auth/authRouter');
 const usersRouter = require('./users/usersRoute');
 const pokemonRoutes = require('./pokemon/pokemonRoutes');
-const db = require('./pokemon/pokemonModel');
+const backpackRoutes = require('./backpack/backpackRoutes');
 
 const server = express();
 
@@ -20,15 +20,6 @@ server.get('/', (req, res) => {
 server.use('/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/pokemon', pokemonRoutes);
-
-server.get('/data', async (req, res) => {
-  const resp = await db.getAll(req.query);
-  console.log(resp);
-  try {
-    res.json(resp);
-  } catch (err) {
-    res.json(err);
-  }
-});
+server.use('/api/backpack', backpackRoutes);
 
 module.exports = server;

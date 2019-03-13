@@ -4,19 +4,15 @@ exports.up = function(knex, Promise) {
       .integer('backpack_id')
       .unsigned()
       .references('id')
-      .inTable('backpack')
-      .onDelete('CASCADE')
-      .onUpdate('CASCADE');
+      .inTable('backpack');
     tbl
       .integer('users_id')
       .unsigned()
       .references('id')
-      .inTable('users')
-      .onDelete('CASCADE')
-      .onUpdate('CASCADE');
+      .inTable('users');
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('usersBackpack');
+  return knex.schema.dropTableIfExists('users_backpack');
 };

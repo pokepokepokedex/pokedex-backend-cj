@@ -5,7 +5,7 @@ const { authenticate } = require('../../auth/authMiddleWare');
 
 // /api/users
 route.get('/', authenticate, (req, res) => {
-  db.getAll()
+  db.getBackpackById()
     .then(users => {
       res.json(users);
     })
