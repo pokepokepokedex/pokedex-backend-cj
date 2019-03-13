@@ -5,7 +5,7 @@ const { authenticate } = require('../../auth/authMiddleWare');
 
 // /api/pokemon
 
-route.get('/all', async (req, res) => {
+route.get('/all', authenticate, async (req, res) => {
   db.getEverything()
     .then(poke => {
       console.log(poke);
