@@ -14,7 +14,7 @@ route.get('/', (req, res) => {
 // /api/backpack
 route.post('/', (req, res) => {
   const { pokedex_number, users_id } = req.body;
-  db.insert({ id, users_id })
+  db.insert({ pokedex_number, users_id })
     .then(bp => {
       res.status(201).json(bp);
     })
