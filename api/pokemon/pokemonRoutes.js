@@ -15,7 +15,7 @@ route.get('/all', authenticate, async (req, res) => {
 });
 
 route.get('/', authenticate, async (req, res) => {
-  const resp = await db.getAll(req.query);
+  const resp = await db.getAll(req.query, res);
 
   try {
     res.json(resp);
