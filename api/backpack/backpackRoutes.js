@@ -4,14 +4,6 @@ const route = express.Router();
 
 route.get('/', (req, res) => {
   db.getAll()
-    .then()
-    .catch();
-});
-
-route.get('/:id', (req, res) => {
-  const id = req.params.id;
-
-  db.getById(id)
     .then(bp => {
       res.json(bp);
     })
@@ -19,20 +11,22 @@ route.get('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
-
+// /api/backpack
 route.post('/', (req, res) => {
-  const { id, name } = req.body;
-  db.insert(id, name)
+  const { pokedex_number, users_id } = req.body;
+  db.insert({ id, users_id })
     .then(bp => {
       res.status(201).json(bp);
     })
-    .catch(res.status(500).json(err));
+    .catch(err => {
+      res.status(500).json(err);
+    });
 });
 
 route.put('/:id', (req, res) => {
   const id = req.params.id;
-  const body = req.body;
-  db.update(id, body)
+  const { name, users_id } = req.body;
+  db.update(id, { name, users_id })
     .then(bp => {
       res.json(bp);
     })

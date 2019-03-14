@@ -1,16 +1,20 @@
 const db = require('../../data/dbConfig');
 
-const getAll = () => {
+const getAll = res => {
   return db('users')
     .select('id', 'username', 'email')
     .paginate(15, 1, true);
 };
 
-const getById = id => {
-  return db('users')
+const getById = async (id, res) => {
+  const knex = await db('users')
     .select('id', 'username', 'email')
     .where({ id })
     .first();
+
+  const bp = await db('users');
+
+  return Promise.all(knex).then(completed => {});
 };
 
 const deleteById = id => {
