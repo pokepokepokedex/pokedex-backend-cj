@@ -22,6 +22,17 @@ route.post('/', (req, res) => {
       res.status(500).json(err);
     });
 });
+// get all pokemon in specific users backpack
+route.get('/:id', (req, res) => {
+  const id = req.params.id;
+  db.getUsersBpById(id)
+    .then(bp => {
+      res.status(200).json(bp);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
 
 route.put('/:id', (req, res) => {
   const id = req.params.id;

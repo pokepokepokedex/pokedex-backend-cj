@@ -10,6 +10,10 @@ const getById = id => {
     .first();
 };
 
+const getUsersBpById = id => {
+  return db('backpack').where({ users_id: id });
+};
+
 const insert = body => {
   return db('backpack')
     .insert(body)
@@ -34,5 +38,6 @@ module.exports = {
   insert,
   update,
   remove,
-  getAll
+  getAll,
+  getUsersBpById
 };
