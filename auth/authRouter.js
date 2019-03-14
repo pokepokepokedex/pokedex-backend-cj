@@ -32,7 +32,7 @@ route.post('/login', (req, res) => {
           const token = jwt.sign(user, process.env.JWT_SECRET, {
             expiresIn: `30 days`
           });
-          res.json({ message: `Welcome ${username}`, token });
+          res.json({ id: user.id, message: `Welcome ${username}`, token });
         } else {
           res.status(401).json({ messag: 'Invalid Credentials' });
         }
