@@ -6,12 +6,13 @@ const { authenticate } = require('../../auth/authMiddleWare');
 // /api/pokemon
 
 route.get('/all', authenticate, async (req, res) => {
-  db.getEverything()
-    .then(poke => {
-      console.log(poke);
-      res.json(poke);
-    })
-    .catch(err => res.status(500).json(err));
+  const resp = await db.getEverything(res);
+
+  try {
+    res.json(resp);
+  } catch (err) {
+    res.json(err);
+  }
 });
 
 route.get('/', authenticate, async (req, res) => {

@@ -5,9 +5,22 @@ const getusers = () => {
   return db('users');
 };
 
-const getEverything = () => {
+const getEverything = async res => {
   console.log('hello');
-  return db('pokemon').select('pokedex_number as id', 'name', 'type1', 'type2');
+  const knex = await db('pokemon').select(
+    'pokedex_number as id',
+    'name',
+    'type1',
+    'type2'
+  );
+  const results = knex.map(async item => {
+    item.name = item.name.split(' ').join('_');
+    return item;
+  });
+  Promise.all(results).then(completed => {
+    knex.data = completed;
+    res.status(200).json(knex);
+  });
 };
 
 const getAll = async (query, res) => {
@@ -36,6 +49,7 @@ const getAll = async (query, res) => {
     .paginate(limit, page, true);
   const results = knex.data.map(async item => {
     item.graph = data[`${item.name}`];
+    item.name = item.name.split(' ').join('_');
     return item;
   });
   Promise.all(results).then(completed => {
