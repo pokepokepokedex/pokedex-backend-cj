@@ -12,9 +12,20 @@ const getById = async (id, res) => {
     .where({ id })
     .first();
 
-  const bp = await db('users');
+  const promises = [knex, getBackpackById(id)];
 
-  return Promise.all(knex).then(completed => {});
+  return Promise.all(promises).then(completed => {
+    let [users, backpack] = completed;
+    users = {
+      ...completed[0],
+      backpack
+    };
+    return users;
+  });
+};
+
+const getBackpackById = id => {
+  return db('backpack').where({ users_id: id });
 };
 
 const deleteById = id => {
@@ -33,5 +44,6 @@ module.exports = {
   getAll,
   getById,
   deleteById,
-  updateById
+  updateById,
+  getBackpackById
 };

@@ -16,7 +16,7 @@ route.get('/', (req, res) => {
     });
 });
 
-route.get('/:id', authenticate, (req, res) => {
+route.get('/:id', (req, res) => {
   const id = req.params.id;
   if (id === false) {
     res.status(404).json({ message: 'Id not found' });
