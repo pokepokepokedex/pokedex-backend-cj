@@ -4,42 +4,40 @@ const route = express.Router();
 const { authenticate } = require('../../auth/authMiddleWare');
 
 // /api/users
-route.get('/', (req, res) => {
+route.get('/', authenticate, (req, res) => {
   db.getAll(res)
     .then(users => {
       res.json(users);
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ message: `You are not authorized: ${err.message}` });
+      res.status(500).json(err);
     });
 });
 
-route.get('/:id', (req, res) => {
+route.get('/:id', authenticate, (req, res) => {
   const id = req.params.id;
-  if (id === false) {
-    res.status(404).json({ message: 'Id not found' });
-  } else {
-    db.getById(id)
-      .then(users => {
+
+  db.getById(id)
+    .then(users => {
+      if (users > 0) {
         res.json(users);
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ message: `You are not authorized: ${err.message}` });
-      });
-  }
+      } else {
+        res.status(404).json({ message: 'User Id not found' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
 });
 
-route.delete('/:id', (req, res) => {
+route.delete('/:id', authenticate, (req, res) => {
   const id = req.params.id;
-  if (!id) {
-    res.status(404).json({ message: 'Id not found' });
-  } else {
-    db.getById(id)
-      .then(deleted => {
+
+  db.getById(id)
+    .then(deleted => {
+      if (deleted === 0) {
+        res.status(404).json({ message: 'ID not found' });
+      } else {
         db.deleteById(id)
           .then(() => {
             res.json(deleted);
@@ -47,24 +45,27 @@ route.delete('/:id', (req, res) => {
           .catch(err => {
             res.status(500).json(err);
           });
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
-  }
-});
-
-route.put('/:id', (req, res) => {
-  const id = req.params.id;
-  const changes = req.params.id;
-
-  db.updateById(id, changes)
-    .then(user => {
-      res.json(user);
+      }
     })
     .catch(err => {
       res.status(500).json(err);
     });
 });
+
+// TBA
+
+// route.put('/:id', (req, res) => {
+//   const id = req.params.id;
+//   const changes = req.params.id;
+
+//   if (!)
+//   db.updateById(id, changes)
+//     .then(user => {
+//       res.json(user);
+//     })
+//     .catch(err => {
+//       res.status(500).json(err);
+//     });
+// });
 
 module.exports = route;

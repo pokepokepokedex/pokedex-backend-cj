@@ -25,11 +25,15 @@ route.get('/', authenticate, async (req, res) => {
   }
 });
 
-route.get('/:id', (req, res) => {
+route.get('/:id', authenticate, (req, res) => {
   const id = req.params.id;
   db.getById(id)
     .then(resp => {
-      res.json(resp);
+      if (resp.length > 0) {
+        res.json(resp);
+      } else {
+        res.status(404).json({ message: 'ID not found' });
+      }
     })
     .catch(err => res.status(500).json(err));
 });
