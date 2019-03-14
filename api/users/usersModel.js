@@ -25,7 +25,9 @@ const getById = async (id, res) => {
 };
 
 const getBackpackById = id => {
-  return db('backpack').where({ users_id: id });
+  return db('backpack')
+    .select('id', 'pokedex_number')
+    .where({ users_id: id });
 };
 
 const deleteById = id => {
