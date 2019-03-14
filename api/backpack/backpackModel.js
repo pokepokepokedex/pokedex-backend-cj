@@ -11,7 +11,8 @@ const getById = id => {
 };
 
 const getUsersBpById = id => {
-  return db('backpack').where({ users_id: id });
+  const query = db('backpack').where({ users_id: id });
+  const pokemonQuery = db('pokemon').select();
 };
 
 const insert = body => {

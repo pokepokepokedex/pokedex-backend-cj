@@ -29,7 +29,7 @@ route.get('/:id', authenticate, (req, res) => {
   const id = req.params.id;
   db.getById(id)
     .then(resp => {
-      if (resp.length > 0) {
+      if (resp) {
         res.json(resp);
       } else {
         res.status(404).json({ message: 'ID not found' });
