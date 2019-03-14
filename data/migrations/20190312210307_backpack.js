@@ -1,15 +1,15 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('backpack', tbl => {
     tbl.increments();
-    tbl.string('poke_name');
-    tbl.integer('pokedex_number');
+    tbl.string('name').notNullable();
     tbl
-      .integer('pokemon_id')
+      .integer('users_id')
       .unsigned()
-      .references('pokedex_number')
-      .inTable('pokemon')
+      .references('id')
+      .inTable('users')
       .onDelete('CASCADE')
-      .onUpdate('CASCADE');
+      .onUpdate('CASCADE')
+      .notNullable();
   });
 };
 
