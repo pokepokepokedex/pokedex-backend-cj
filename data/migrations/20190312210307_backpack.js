@@ -1,6 +1,9 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('backpack', tbl => {
     tbl.increments();
+    tbl.string('type1').notNullable();
+    tbl.string('type2').notNullable();
+    tbl.string('name').notNullable();
     tbl
       .integer('pokedex_number')
       .notNullable()

@@ -19,7 +19,7 @@ route.get('/:id', authenticate, (req, res) => {
 
   db.getById(id)
     .then(users => {
-      if (users > 0) {
+      if (users) {
         res.json(users);
       } else {
         res.status(404).json({ message: 'User Id not found' });

@@ -17,10 +17,10 @@ route.get('/', authenticate, (req, res) => {
 
 route.post('/', authenticate, (req, res) => {
   const { pokedex_number, users_id } = req.body;
-  if (!pokedex_number || !users_id) {
+  if (!pokedex_number || !users_id || !type1 || !type2 || !name) {
     res.status(500).json({ message: 'Missing fields required' });
   } else {
-    db.insert({ pokedex_number, users_id })
+    db.insert({ pokedex_number, users_id, type1, type2, name })
       .then(bp => {
         res.status(201).json(bp);
       })
@@ -34,7 +34,7 @@ route.get('/:id', authenticate, (req, res) => {
   const id = req.params.id;
   db.getUsersBpById(id)
     .then(bp => {
-      if (bp.length > 0) {
+      if (bp) {
         res.status(200).json(bp);
       } else {
         res.status(404).json({ message: 'ID not found' });
@@ -53,7 +53,7 @@ route.put('/:id', authenticate, (req, res) => {
   } else {
     db.update(id, { name, users_id })
       .then(bp => {
-        if (bp.length > 0) {
+        if (bp) {
           res.json(bp);
         } else {
           res.status(404).json({ message: 'ID not found' });
@@ -69,7 +69,7 @@ route.delete('/:id', authenticate, (req, res) => {
   const id = req.params.id;
   db.remove(id)
     .then(bp => {
-      if (bp.length > 0) {
+      if (bp) {
         res.json(bp);
       } else {
         res.status(404).json({ message: 'ID not found' });
