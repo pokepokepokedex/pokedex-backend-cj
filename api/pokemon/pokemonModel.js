@@ -111,6 +111,9 @@ const getById = async id => {
     .where({ pokedex_number: id })
     .first();
   knex.name = knex.name.split(' ').join('_');
+  if (knex.id === 772) {
+    knex.name = 'Type_Null';
+  }
   return knex;
 };
 
