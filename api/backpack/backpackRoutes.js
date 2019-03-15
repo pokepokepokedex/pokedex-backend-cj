@@ -45,25 +45,25 @@ route.get('/:id', authenticate, (req, res) => {
     });
 });
 
-route.put('/:id', authenticate, (req, res) => {
-  const id = req.params.id;
-  const { name, users_id } = req.body;
-  if (!name || !users_id) {
-    res.status(500).json({ message: 'Missing fields required' });
-  } else {
-    db.update(id, { name, users_id })
-      .then(bp => {
-        if (bp) {
-          res.json(bp);
-        } else {
-          res.status(404).json({ message: 'ID not found' });
-        }
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
-  }
-});
+// route.put('/:id', authenticate, (req, res) => {
+//   const id = req.params.id;
+//   const { name, users_id } = req.body;
+//   if (!name || !users_id) {
+//     res.status(500).json({ message: 'Missing fields required' });
+//   } else {
+//     db.update(id, { name, users_id })
+//       .then(bp => {
+//         if (bp) {
+//           res.json(bp);
+//         } else {
+//           res.status(404).json({ message: 'ID not found' });
+//         }
+//       })
+//       .catch(err => {
+//         res.status(500).json(err);
+//       });
+//   }
+// });
 
 route.delete('/:id', authenticate, (req, res) => {
   const id = req.params.id;
