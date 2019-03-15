@@ -57,9 +57,38 @@ const getAll = async (query, res) => {
     res.status(200).json(knex);
   });
 };
+// get all without pagination
+const getErrThang = async res => {
+  console.log('hello');
+  let knex = await db('pokemon').select(
+    'pokedex_number as id',
+    'name',
+    'pokedex_number',
+    'type1',
+    'type2',
+    'height_m',
+    'weight_kg',
+    'abilities',
+    'base_happiness',
+    'hp',
+    'attack',
+    'defense',
+    'sp_attack',
+    'sp_defense',
+    'speed',
+    'generation',
+    'capture_rate'
+  );
 
-const getById = id => {
-  return db('pokemon')
+  return knex.map(item => {
+    item.graph = data[`${item.name}`];
+    item.name = item.name.split(' ').join('_');
+    return item;
+  });
+};
+
+const getById = async id => {
+  const knex = await db('pokemon')
     .select(
       'pokedex_number as id',
       'name',
@@ -81,11 +110,14 @@ const getById = id => {
     )
     .where({ pokedex_number: id })
     .first();
+  knex.name = knex.name.split(' ').join('_');
+  return knex;
 };
 
 module.exports = {
   getAll,
   getById,
   getusers,
-  getEverything
+  getEverything,
+  getErrThang
 };
