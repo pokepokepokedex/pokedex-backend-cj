@@ -16,7 +16,7 @@ route.get('/', authenticate, (req, res) => {
 });
 
 route.post('/', authenticate, (req, res) => {
-  const { pokedex_number, users_id } = req.body;
+  const { pokedex_number, users_id, type1, type2, name } = req.body;
   if (!pokedex_number || !users_id || !type1 || !type2 || !name) {
     res.status(500).json({ message: 'Missing fields required' });
   } else {
