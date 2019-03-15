@@ -87,8 +87,8 @@ const getErrThang = async res => {
   });
 };
 
-const getById = id => {
-  return db('pokemon')
+const getById = async id => {
+  const knex = await db('pokemon')
     .select(
       'pokedex_number as id',
       'name',
@@ -110,6 +110,8 @@ const getById = id => {
     )
     .where({ pokedex_number: id })
     .first();
+  knex.name = knex.name.split(' ').join('_');
+  return knex;
 };
 
 module.exports = {

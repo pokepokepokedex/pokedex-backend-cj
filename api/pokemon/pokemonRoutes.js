@@ -37,13 +37,12 @@ route.get('/', authenticate, async (req, res) => {
 
 route.get('/:id', authenticate, (req, res) => {
   const id = req.params.id;
+  if (!id) {
+    res.status(500).json({ message: 'ID not found' });
+  }
   db.getById(id)
     .then(resp => {
-      if (resp) {
-        res.json(resp);
-      } else {
-        res.status(404).json({ message: 'ID not found' });
-      }
+      res.json(resp);
     })
     .catch(err => res.status(500).json(err));
 });
