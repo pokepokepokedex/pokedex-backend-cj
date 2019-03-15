@@ -15,6 +15,16 @@ route.get('/all', authenticate, async (req, res) => {
   }
 });
 
+route.get('/errthang', (req, res) => {
+  db.getErrThang(res)
+    .then(poke => {
+      res.json(poke);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 route.get('/', authenticate, async (req, res) => {
   const resp = await db.getAll(req.query, res);
 

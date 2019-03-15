@@ -5,7 +5,7 @@ const route = express.Router();
 
 // /api/backpack
 
-route.get('/', authenticate, (req, res) => {
+route.get('/', (req, res) => {
   db.getAll()
     .then(bp => {
       res.json(bp);
@@ -15,9 +15,9 @@ route.get('/', authenticate, (req, res) => {
     });
 });
 
-route.post('/', authenticate, (req, res) => {
-  const { pokedex_number, users_id, type1, type2, name } = req.body;
-  if (!pokedex_number || !users_id || !type1 || !type2 || !name) {
+route.post('/', (req, res) => {
+  const { pokedex_number, users_id, type1, name, type2 } = req.body;
+  if (!pokedex_number || !users_id || !type1 || !name) {
     res.status(500).json({ message: 'Missing fields required' });
   } else {
     db.insert({ pokedex_number, users_id, type1, type2, name })
