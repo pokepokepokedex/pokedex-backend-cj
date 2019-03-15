@@ -1,8 +1,20 @@
-# PokePokePokedex! API 
+# pokestats API 
+
+## Introduction
+
+[pokestats.netlify.com](https://pkstats.netlify.com/index.html)
+
+FIND any Pokémon. Find your favorite Pokémon right away through our extensive directory.
+ LEARN about your Pokémon.
+Uncover everything you need to know about any Pokemon, including their HP, strengths, weaknesses, special defenses, and more! TRACK and grow your Pokémon
+Build your very own powerful team of Pokémon. You can build and customize as many teams as you want.
+
+
 
 ## Table of Contents
 
 - [Overview](#overview)
+  - [Installation](Installation)
   * [API URL](#api-url)
   * [Data set](#DATA-SET)
   * [SCHEMA](#SCHEMA)
@@ -19,17 +31,43 @@
   * [Update user](#update-user)
 * [Pokemon routes](#pokemon-routes)
   * [Get all pokemon](#get-all-pokemon)
+  * [Get ErrThang](#GET-ERRTHANG)
   * [Get all pokemon with pagination](#get-all-pokemon-with-pagination)
   * [Get pokemon by ID](#get-pokemon-by-id)
+* [Backpack routes](#-BACKPACK-ROUTES)
+  * [Get All from backpack](#GET-ALL)
+  * [Post to Backpack](#POST-TO-BACKPACK)
+  * [Get backpack of user](#GET-BACKPACK-OF-USER)
+  * [Delete Pokemon in Backpack](#DELETE-POKEMON-IN-BACKPACK)
 ----
 # Overview
 
-This repository holds all back-end files and resources for PokePokePokedex application and its readme documentation
+This repository holds all back-end files and resources for pokestats application and its readme documentation. This repository was made during Lambda School's build week where students join a team that consists other students from different cohorts. Each cohorts are responsible for either UI, Front End, Back End, and leading the team. This repository is for th Back end side.
 
+---
 
 ## API URL
 
 https://pokepokepokedex.herokuapp.com
+
+---
+
+## Installation
+
+Fork/Clone the repository. In the same directory as the package.json, in your terminal:
+```
+yarn install
+```
+This is to install all needed packages. To start the server, in your terminal, type:
+```
+yarn server
+```
+To test the repository:
+```
+yarn test
+```
+---
+
 
 ## DATA SET 
 
@@ -69,6 +107,18 @@ https://pokepokepokedex.herokuapp.com
   "generation": 1,                              // Integer
   "capture_rate": "45"                          // Text
 }
+```
+`backpack`
+```
+{
+  "id": 1,                                      // Integer [Primary key]
+  "type1": fire,                                // String [Required]
+  "type2": flying                               // String
+  "name": Charizard                             // String [Required]
+  "pokedex_number": 9,                          // Integer [Required, Unsigned]
+  "users_id": 1                                 // Integer [Foreign Key]
+}
+
 ```
 
 [Back to Table of Contents](#table-of-contents)
@@ -118,10 +168,14 @@ navigate at the end of url by: ?page=2
 |Get all users|GET|/api/users| `PROTECTED ROUTE` - Returns an array of user objects of all users|
 |Get user by ID|GET|/api/users/:id| `PROTECTED ROUTE` - Returns an array of object of selected user by ID|
 |Delete user by ID|DELETE|/api/users/:id| delete selected user by ID|
-|Update user by ID|PUT|/api/users/:id| updates selected user property by ID using payload sent to the body|
-|Get all pokemon|GET|/api/pokemon/all| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon|
+|Get all pokemon|GET|/api/pokemon/all| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon(limited)|
 |Get all pokemon by pagination|GET|/api/pokemon| `PROTECTED ROUTE` - Returns an array of pokemon objects of all pokemon with pagination|
+|Get ErrThang|GET|/api/pokemon/errthang|`PROTECTED ROUTE` - Gets all pokemon with all properties without pagination|
 |Get pokemon by ID|GET|/api/pokemon/:id| `PROTECTED ROUTE` - Returns an array of pokemon objects of selected pokemon by ID|
+Get backpack of specific user|GET|/api/backpack:id|`PROTECTED ROUTE` - Returns and array of objects of all pokemons in the user's backpack|
+|Get all pokemon|GET|/api/backpack|`PROTECTED ROUTE` - returns an array of pokemon in backpack object
+|Insert to backpack|POST|/api/backpack|`PROTECTED ROUTE` - Inserts payload into the backpack database|
+|Delete in backpack|DELETE|/api/backpack/:id|`PROTECTED ROUTE` - Delete a specific pokemon in backpack
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -410,8 +464,8 @@ TBA
 
 # POKEMON ROUTES
 
-## **GET ALL POKEMON**
-### Returns all pokemon
+## **GET ALL POKEMON(LIMITED)**
+### Returns all pokemon name and ID
 
 *Mehod Url:* `/api/pokemon/all`
 *HTTP method:* **[GET]**
@@ -450,6 +504,121 @@ TBA
         "name": "Charmeleon"
     },
     
+    
+    ...
+
+   to the 800th+ pokemon object
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+## **GET ERRTHANG**
+### Returns all pokemon and pokemon properties
+
+*Mehod Url:* `/api/pokemon/errthang`
+*HTTP method:* **[GET]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Response
+
+##### 200 (OK)
+>If you successfully get all the pokemon, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+{
+        "id": 1,
+        "name": "Bulbasaur",
+        "pokedex_number": 1,
+        "type1": "grass",
+        "type2": "poison",
+        "height_m": 0.7,
+        "weight_kg": 6.9,
+        "abilities": "['Overgrow', 'Chlorophyll']",
+        "base_happiness": 70,
+        "hp": 45,
+        "attack": 49,
+        "defense": 49,
+        "sp_attack": 65,
+        "sp_defense": 65,
+        "speed": 45,
+        "generation": 1,
+        "capture_rate": "45",
+        "graph": [
+            1,
+            1,
+            1,
+            0.5,
+            0.5,
+            0.5,
+            2,
+            2,
+            1,
+            0.25,
+            1,
+            2,
+            1,
+            1,
+            2,
+            1,
+            1,
+            0.5
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Ivysaur",
+        "pokedex_number": 2,
+        "type1": "grass",
+        "type2": "poison",
+        "height_m": 1,
+        "weight_kg": 13,
+        "abilities": "['Overgrow', 'Chlorophyll']",
+        "base_happiness": 70,
+        "hp": 60,
+        "attack": 62,
+        "defense": 63,
+        "sp_attack": 80,
+        "sp_defense": 80,
+        "speed": 60,
+        "generation": 1,
+        "capture_rate": "45",
+        "graph": [
+            1,
+            1,
+            1,
+            0.5,
+            0.5,
+            0.5,
+            2,
+            2,
+            1,
+            0.25,
+            1,
+            2,
+            1,
+            1,
+            2,
+            1,
+            1,
+            0.5
+        ]
+    },
     
     ...
 
@@ -612,6 +781,228 @@ TBA
 
 ---
 
+# BACKPACK ROUTES
+
+## **GET ALL**
+### Returns all pokemon in backpack
+
+*Mehod Url:* `/api/backpack`
+*HTTP method:* **[GET]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Response
+
+##### 200 (OK)
+>If you successfully get all the pokemon in the backpack table, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+[
+    {
+        "id": 1,
+        "type1": "fire",
+        "type2": null,
+        "name": "Charmander",
+        "pokedex_number": 4,
+        "users_id": 1
+    },
+    {
+        "id": 2,
+        "type1": "water",
+        "type2": null,
+        "name": "Squirtle",
+        "pokedex_number": 7,
+        "users_id": 2
+    }
+]
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+## **POST TO BACKPACK**
+### Inserts a pokemon to the backpack
+
+*Mehod Url:* `/api/backpack`
+*HTTP method:* **[POST]**
+
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+
+#### Body
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `name`     | String | Yes      |            |
+| `pokedex_number`        | Integer | Yes      |           |
+| `type1`     | String | Yes      |                          |
+| `type2`     | String | No      |                          |
+| `users_id`     | Interer | Yes      | Foreign Key                         |
+
+*example:*
+
+```
+{
+    "name": "Squirtle",
+    "pokedex_number": 7,
+    "type1": "water",
+    "type2": null
+    "users_id": 1,
+}
+```
+
+#### Response
+
+##### 200 (OK)
+>If you successfully get all the pokemon in the backpack table, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+{
+    "id": 3,
+    "type1": "water",
+    "type2": null,
+    "name": "Squirtle",
+    "pokedex_number": 7,
+    "users_id": 1
+}
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+## **GET BACKPACK OF USER**
+### Returns backpack of selected user by ID
+
+*Mehod Url:* `/api/backpack/:id`
+*HTTP method:* **[GET]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Parameters
+
+| name    | type   | required | description              |
+| --------| ------ | -------- | ------------------------ |
+| `id`| Int    | Yes      | Id of specific user |
+
+
+#### Response
+
+##### 200 (OK)
+>If you successfully get al the users, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+[
+    {
+        "id": 1,
+        "type1": "fire",
+        "type2": null,
+        "name": "Charmander",
+        "pokedex_number": 4,
+        "users_id": 1
+    },
+    {
+        "id": 2,
+        "type1": "water",
+        "type2": null,
+        "name": "Squirtle",
+        "pokedex_number": 7,
+        "users_id": 1
+    },
+    {
+        "id": 3,
+        "type1": "water",
+        "type2": null,
+        "name": "Squirtle",
+        "pokedex_number": 7,
+        "users_id": 1
+    }
+]
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+## **DELETE POKEMON IN BACKPACK**
+### Returns backpack of selected user by ID
+
+*Mehod Url:* `/api/backpack/:id`
+*HTTP method:* **[DELETE]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Parameters
+
+| name    | type   | required | description              |
+| --------| ------ | -------- | ------------------------ |
+| `id`| Int    | Yes      | Id of specific user |
+
+
+#### Response
+
+##### 200 (OK)
+>If you successfully delete one pokemon in backpack, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+1
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
 
 <!-- 
 ## **GET TOPICS**
