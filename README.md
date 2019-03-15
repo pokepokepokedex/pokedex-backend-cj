@@ -31,8 +31,14 @@ Build your very own powerful team of Pokémon. You can build and customize as ma
   * [Update user](#update-user)
 * [Pokemon routes](#pokemon-routes)
   * [Get all pokemon](#get-all-pokemon)
+  * [Get ErrThang](#GET-ERRTHANG)
   * [Get all pokemon with pagination](#get-all-pokemon-with-pagination)
   * [Get pokemon by ID](#get-pokemon-by-id)
+* [Backpack routes](#-BACKPACK-ROUTES)
+  * [Get All from backpack](#GET-ALL)
+  * [Post to Backpack](#POST-TO-BACKPACK)
+  * [Get backpack of user](#GET-BACKPACK-OF-USER)
+  * [Delete Pokemon in Backpack](#DELETE-POKEMON-IN-BACKPACK)
 ----
 # Overview
 
@@ -939,6 +945,47 @@ TBA
         "users_id": 1
     }
 ]
+```
+
+##### 401 (Unauthorized)
+>If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
+```
+{
+  "error": true,
+  "message": "You are unathorized to view the content."
+}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+## **DELETE POKEMON IN BACKPACK**
+### Returns backpack of selected user by ID
+
+*Mehod Url:* `/api/backpack/:id`
+*HTTP method:* **[DELETE]**
+
+#### Headers
+
+| name | type   | required | description |
+| ----- | ------ | -------- | ----- |
+| `Content-Type` | String | Yes | Must be application/json |
+| `Authorization`| String | No       | Bearer JWT authorization token |
+
+#### Parameters
+
+| name    | type   | required | description              |
+| --------| ------ | -------- | ------------------------ |
+| `id`| Int    | Yes      | Id of specific user |
+
+
+#### Response
+
+##### 200 (OK)
+>If you successfully delete one pokemon in backpack, the endpoint will return an HTTP response with a status code `200` and a body as below.
+```
+1
 ```
 
 ##### 401 (Unauthorized)
