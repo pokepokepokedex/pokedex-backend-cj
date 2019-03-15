@@ -42,7 +42,13 @@ Build your very own powerful team of Pokémon. You can build and customize as ma
 ----
 # Overview
 
-This repository holds all back-end files and resources for PokePokePokedex application and its readme documentation
+This repository holds all back-end files and resources for pokestats application and its readme documentation. This repository was made during Lambda School's build week where students join a team that consists other students from different cohorts. Each cohorts are responsible for either UI, Front End, Back End, and leading the team. This repository is for th Back end side.
+
+---
+
+## API URL
+
+https://pokepokepokedex.herokuapp.com
 
 ---
 
@@ -62,9 +68,6 @@ yarn test
 ```
 ---
 
-## API URL
-
-https://pokepokepokedex.herokuapp.com
 
 ## DATA SET 
 
