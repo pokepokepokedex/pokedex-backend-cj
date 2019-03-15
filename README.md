@@ -1,4 +1,4 @@
-# PokePokePokedex! API 
+# pokestats API 
 
 ## Introduction
 
