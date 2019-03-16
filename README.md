@@ -50,6 +50,8 @@ This repository holds all back-end files and resources for pokestats application
 
 https://pokepokepokedex.herokuapp.com
 
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 ## Installation
@@ -66,12 +68,21 @@ To test the repository:
 ```
 yarn test
 ```
+
+[Back to Table of Contents](#table-of-contents)
+
 ---
 
 
 ## DATA SET 
 
 *Found in:* https://www.kaggle.com/rounakbanik/pokemon
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+
 
 
 ## SCHEMA
