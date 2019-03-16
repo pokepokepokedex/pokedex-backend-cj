@@ -14,7 +14,7 @@ Build your very own powerful team of Pokémon. You can build and customize as ma
 ## Table of Contents
 
 - [Overview](#overview)
-  - [Installation](Installation)
+  - [Installation](#Installation)
   * [API URL](#api-url)
   * [Data set](#DATA-SET)
   * [SCHEMA](#SCHEMA)
