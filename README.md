@@ -312,7 +312,7 @@ ___
 ## **GET ALL USERS**
 ### Returns all users
 
-*Mehod Url:* `/api/users`
+*Mehod Url:* `/api/user/users`
 *HTTP method:* **[GET]**
 
 #### Headers
@@ -327,52 +327,42 @@ ___
 ##### 200 (OK)
 >If you successfully get al the users, the endpoint will return an HTTP response with a status code `200` and a body as below.
 ```
-{
-  {
-    "total": 3,
-    "last_page": 1,
-    "per_page": 15,
-    "current_page": 1,
-    "from": 0,
-    "to": 3,
-    "data": [
-      {
+[
+    {
         "id": 1,
-        "username": "admin",
-        "email": "admin@administrator.com"
-      },
-      {
+        "username": "TestUser1",
+        "password": "$2a$10$YF/pNRUTjkaN05e1Q0dkl.8L7302U7LEfVUahe8diOLDvSSFsrlwm",
+        "first_name": "John",
+        "last_name": "Doe"
+    },
+    {
         "id": 2,
-        "username": "beniscool",
-        "email": "beniscool@administrator.com"
-      },
-      {
+        "username": "TestUser2",
+        "password": "$2a$10$Ru6tBXP5vet1TkHT/m.TxuoerlRLk5uFt9B95/xpBiRwS8eB/hSNi",
+        "first_name": "Jane",
+        "last_name": "Doe"
+    },
+    {
         "id": 3,
-        "username": "ceciljohn",
-        "email": "ceciljohn@administrator.com"
-      }
-    ]
-  }
-}
+        "username": "TestUser3",
+        "password": "$2a$10$w4BLS45rMDcfaMQWByNzkO3mNF9I5XIXYzrpALmbT1q7/p4s.szou",
+        "first_name": "Adam",
+        "last_name": "Smith"
+    }
+]
 ```
 
 
-##### 400 (Bad Request)
->If you send in invalid fields or the password of the user corresponding to the token does not match the currentPassword field, the endpoint will return an HTTP response with a status code `400` and a body as below.
+##### 500 (Internal Server Error)
+>If there is an error retrieving users then endpoint will return an HTTP response with a status code `500` and a body as below.
 ```
-{
-  "error": true,
-  "message": "There was a problem with your request."
-}
+{ error: "Could not retrieve list of users" }
 ```
 
 ##### 401 (Unauthorized)
 >If you are not logged in, then endpoint will return an HTTP response with a status code `401` and a body as below.
 ```
-{
-  "error": true,
-  "message": "You are unathorized to view the content."
-}
+{ message: "No token provided. Please log in." }
 ```
 
 ---
