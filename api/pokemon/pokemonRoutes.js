@@ -1,11 +1,11 @@
-const express = require('express');
-const db = require('./pokemonModel');
+const express = require("express");
+const db = require("./pokemonModel");
 const route = express.Router();
-const { authenticate } = require('../../auth/authMiddleWare');
+// const { authenticate } = require("../../auth/authMiddleWare");
 
 // /api/pokemon
 
-route.get('/all', authenticate, async (req, res) => {
+route.get("/all", async (req, res) => {
   const resp = await db.getEverything(res);
 
   try {
@@ -15,7 +15,7 @@ route.get('/all', authenticate, async (req, res) => {
   }
 });
 
-route.get('/errthang', (req, res) => {
+route.get("/errthang", (req, res) => {
   db.getErrThang(res)
     .then(poke => {
       res.json(poke);
@@ -25,7 +25,7 @@ route.get('/errthang', (req, res) => {
     });
 });
 
-route.get('/', authenticate, async (req, res) => {
+route.get("/", async (req, res) => {
   const resp = await db.getAll(req.query, res);
 
   try {
@@ -35,10 +35,10 @@ route.get('/', authenticate, async (req, res) => {
   }
 });
 
-route.get('/:id', authenticate, (req, res) => {
+route.get("/:id", (req, res) => {
   const id = req.params.id;
   if (!id) {
-    res.status(500).json({ message: 'ID not found' });
+    res.status(500).json({ message: "ID not found" });
   }
   db.getById(id)
     .then(resp => {
