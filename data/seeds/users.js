@@ -9,18 +9,15 @@ exports.seed = function(knex, Promise) {
       return knex("users").insert([
         {
           username: "admin",
-          password: "admin",
-          email: "admin@administrator.com"
+          password: "admin"
         },
         {
           username: "beniscool",
-          password: bcrypt.hashSync("password", 10),
-          email: "beniscool@administrator.com"
+          password: bcrypt.hashSync("password", 10)
         },
         {
           username: "ceciljohn",
-          password: bcrypt.hashSync("password", 10),
-          email: "ceciljohn@administrator.com"
+          password: bcrypt.hashSync("password", 10)
         }
       ]);
     });
