@@ -7,12 +7,12 @@ const route = express.Router();
 
 // register route
 route.post("/register", (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
+  const { username, password, email } = req.body;
+  if (!username || !password || !email) {
     res.status(422).json({ message: "Missing username and password fields" });
   } else {
     const hash = bcrypt.hashSync(password, 10);
-    db.register({ username, password: hash })
+    db.register({ username, password: hash, email })
       .then(() => {
         res.status(201).json({ message: `You have registered, ${username}!` });
       })
